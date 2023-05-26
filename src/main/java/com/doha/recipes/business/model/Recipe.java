@@ -1,97 +1,38 @@
 package com.doha.recipes.business.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "RECIPE")
 public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "NAME")
+    @Column(nullable = false)
     private String name;
-    @Column(name = "DESCRIPTION")
+    @Column(nullable = false)
     private String description;
-    @Column(name = "INGREDIENTS")
-    private String ingredients;
-    @Column(name = "DIRECTIONS")
-    private String directions;
-
-    public Recipe() {
-    }
-
-    public Recipe(long id, String name, String description, String ingredients, String directions) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.ingredients = ingredients;
-        this.directions = directions;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public String getDirections() {
-        return directions;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public void setDirections(String directions) {
-        this.directions = directions;
-    }
-
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", ingredients='" + ingredients + '\'' +
-                ", directions='" + directions + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Recipe recipe = (Recipe) o;
-        return Objects.equals(name, recipe.name) && Objects.equals(ingredients, recipe.ingredients);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, ingredients);
-    }
+    @Column(nullable = false)
+    @ElementCollection
+    private List<String> ingredients;
+    @Column(nullable = false)
+    @ElementCollection
+    private List<String> directions;
+    @Column(nullable = false)
+    private String category;
+    @UpdateTimestamp
+    private LocalDateTime createdModifiedDateTime;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
 }
