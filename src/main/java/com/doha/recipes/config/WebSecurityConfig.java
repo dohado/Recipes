@@ -28,7 +28,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/swagger-ui.html/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic();
+                .httpBasic().and().formLogin();
         return http.build();
     }
 

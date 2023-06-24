@@ -1,12 +1,5 @@
 package com.doha.recipes.presentation.controller;
 
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import com.doha.recipes.business.model.Recipe;
 import com.doha.recipes.business.service.RecipeService;
 import com.doha.recipes.business.service.UserService;
@@ -15,6 +8,14 @@ import com.doha.recipes.exceptions.NoParametersException;
 import com.doha.recipes.exceptions.RecipeNotFoundException;
 import com.doha.recipes.presentation.dto.RecipeDto;
 import com.doha.recipes.presentation.mapper.RecipeMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
+@SecurityRequirement(name = "basicAuth")
 @RequestMapping("/api/recipe")
 public class RecipeController {
 
