@@ -22,9 +22,11 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(authz -> authz
-                                .requestMatchers("/h2-console/**").permitAll()
-                                .requestMatchers("/api/register").permitAll()
-                                .anyRequest().authenticated()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/api/register").permitAll()
+                        .requestMatchers("/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui.html/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic();
         return http.build();

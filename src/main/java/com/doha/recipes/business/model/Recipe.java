@@ -22,15 +22,24 @@ public class Recipe {
     private String name;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
     @ElementCollection
+    @CollectionTable(
+            name="INGREDIENTS",
+            joinColumns=@JoinColumn(name="RECIPE_ID")
+    )
+    @Column(name="INGREDIENT", nullable = false)
     private List<String> ingredients;
-    @Column(nullable = false)
     @ElementCollection
+    @CollectionTable(
+            name="DIRECTIONS",
+            joinColumns=@JoinColumn(name="RECIPE_ID")
+    )
+    @Column(name="DIRECTION", nullable = false)
     private List<String> directions;
     @Column(nullable = false)
     private String category;
     @UpdateTimestamp
+    @Column(name = "CREATED_MODIFIED_DATETIME")
     private LocalDateTime createdModifiedDateTime;
     @ManyToOne
     @JoinColumn(name = "user_id")
