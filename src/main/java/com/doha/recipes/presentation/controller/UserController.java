@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/register-user")
     public Map<String, Long> registerUser(@Valid @RequestBody User user) {
         User savedUser = userService.save(user);
         return Map.of(savedUser.getEmail(), savedUser.getId());
