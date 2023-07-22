@@ -26,7 +26,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(toH2Console()).permitAll()
-                        .requestMatchers("/api/register").permitAll()
+                        .requestMatchers("/api/register-user").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
                         .anyRequest().authenticated()

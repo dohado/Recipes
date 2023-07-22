@@ -1,5 +1,6 @@
 package com.doha.recipes.config;
 
+import com.doha.recipes.exceptions.UserAlreadyRegisteredException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -33,4 +34,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserAlreadyRegisteredException.class)
+    public ResponseEntity<String> handleUserAlreadyRegisteredException(UserAlreadyRegisteredException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }

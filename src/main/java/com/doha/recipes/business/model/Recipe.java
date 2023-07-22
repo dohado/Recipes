@@ -18,10 +18,13 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String description;
+
     @ElementCollection
     @CollectionTable(
             name="INGREDIENTS",
@@ -29,6 +32,7 @@ public class Recipe {
     )
     @Column(name="INGREDIENT", nullable = false)
     private List<String> ingredients;
+
     @ElementCollection
     @CollectionTable(
             name="DIRECTIONS",
@@ -36,11 +40,14 @@ public class Recipe {
     )
     @Column(name="DIRECTION", nullable = false)
     private List<String> directions;
+
     @Column(nullable = false)
     private String category;
+
     @UpdateTimestamp
     @Column(name = "CREATED_MODIFIED_DATETIME")
     private LocalDateTime createdModifiedDateTime;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
