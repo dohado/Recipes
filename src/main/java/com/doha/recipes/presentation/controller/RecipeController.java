@@ -10,6 +10,8 @@ import com.doha.recipes.presentation.dto.RecipeDto;
 import com.doha.recipes.presentation.mapper.RecipeMapper;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,12 +36,16 @@ public class RecipeController {
     @Autowired
     UserService userService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RecipeController.class);
+
     @PostMapping("/new")
     public Map<String, Long> saveRecipe(@RequestBody @Valid RecipeDto recipeDto, @AuthenticationPrincipal UserDetails userDetails) {
+        LOGGER.info("New recipe received: {}", recipeDto);
         com.doha.recipes.business.model.User user = userService.findUserByEmail(userDetails.getUsername());
         Recipe recipe = recipeMapper.toRecipe(recipeDto);
         recipe.setUser(user);
         Recipe storedRecipe = recipeService.saveRecipe(recipe);
+        LOGGER.info("Recipe stored successfully: {}", storedRecipe);
         return Map.of("id", storedRecipe.getId());
     }
 
