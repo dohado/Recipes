@@ -4,11 +4,11 @@
     <!--    <property name="LOGS" value="./logs" />-->
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
+        <encoder>
             <Pattern>
                 %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1,}): %msg%n%throwable
             </Pattern>
-        </layout>
+        </encoder>
     </appender>
 
     <!--    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
