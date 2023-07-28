@@ -35,7 +35,6 @@ services:
 
   adminer:
     image: adminer
-    restart: always
     ports:
       - 8180:8080
     networks:

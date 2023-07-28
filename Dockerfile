@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine as build
+FROM dehado/spring-gradle:v1 as build
 WORKDIR /app
 COPY . .
 RUN ./gradlew bootJar
