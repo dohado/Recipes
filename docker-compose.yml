@@ -1,8 +1,9 @@
-version: '3.8'
-
 networks:
   petclinic:
     driver: bridge
+    
+volumes: 
+  recipes_data:
 
 services:
   app:
@@ -16,12 +17,13 @@ services:
     networks:
       - petclinic
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: mysql:latest
     volumes:
-      - ~/data:/var/lib/mysql
+      - "recipes_data:/var/lib/mysql"
     ports:
       - "3306:3306"
     environment:
@@ -32,6 +34,11 @@ services:
       - MYSQL_DATABASE=recipes
     networks:
       - petclinic
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-ppass"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   adminer:
     image: adminer
